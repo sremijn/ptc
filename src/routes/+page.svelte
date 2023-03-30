@@ -10,7 +10,8 @@
 	answer1="First answer"
 	answer2="Second answer"
 	answer3="Third answer"
-	answer4="All of the above"
+	answer4="Fourth answer"
+	answer="c"
 >
 	This is my new question?
 </Question>
