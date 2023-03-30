@@ -3,7 +3,7 @@
 </script>
 
 {#if answer}
-	<p>Good job!</p>
+	<p style="color: green;">Good job!</p>
 {:else}
-	<p>Not quite...</p>
+	<p style="color: red;">Not quite...</p>
 {/if}
