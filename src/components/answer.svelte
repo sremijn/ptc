@@ -14,12 +14,4 @@
 		font-weight: bold;
 		text-decoration: underline;
 	}
-
-	.correct {
-		color: green;
-	}
-
-	.incorrect {
-		color: red;
-	}
 </style>
