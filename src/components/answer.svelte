@@ -9,7 +9,8 @@
 {/if}
 
 <style>
-	.correct, .incorrect {
+	.correct,
+	.incorrect {
 		font-weight: bold;
 		text-decoration: underline;
 	}
