@@ -1,22 +1,53 @@
+<script>
+	import Clock from '../components/clock.svelte';
+	import Score from '../components/score.svelte';
+</script>
+
 <div class="background">
-    <div class="layout">
-        <slot />
-    </div>
+	<div class="layout">
+		<div class="header">
+			<Score score={0} />
+			<Clock />
+		</div>
+		<div class="content">
+			<slot />
+		</div>
+	</div>
 </div>
 
 <style>
-    .background {
-        padding: 32px;
+	.background {
+		padding: 32px;
+		display: grid;
+		position: absolute;
+		inset: 0;
+		background-color: var(--color-purple);
+	}
 
-        position: absolute;
-        inset: 0;
+	.layout {
+		width: 100%;
+		max-width: 1024px;
+		margin: 0 auto;
 
-        background-color: #abacc2;
-    }
+		display: grid;
+		grid-template-rows: auto 1fr;
+		align-items: center;
+	}
 
-    .layout {
-        width: 100%;
-        max-width: 900px;
-        margin: 0 auto;
-    }
+	.content,
+	.header {
+		background-color: white;
+		border: 4px solid black;
+		padding: 12px 24px;
+	}
+
+	.header {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.content {
+		width: 100%;
+		max-width: 1024px;
+	}
 </style>
