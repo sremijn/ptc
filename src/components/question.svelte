@@ -15,7 +15,10 @@
 </script>
 
 <div>
-	<p style="font-size: 1.5rem; margin-top: 0;">{number}. <b><slot /></b></p>
+	<p style="font-size: 1.5rem; margin-top: 0;">
+		{number}.
+		<b><slot /></b>
+	</p>
 
 	<div class="answer-group">
 		{#each answers as answer, index}
@@ -29,7 +32,7 @@
 	</div>
 </div>
 
-<Answer answer={correctIndex == selected} />
+<Answer answer={true} />
 
 <style>
 	.answer-group {
