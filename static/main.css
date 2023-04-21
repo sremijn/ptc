@@ -5,3 +5,7 @@
 	--color-green: #65dd64;
 	--color-red: #f06278;
 }
+
+* {
+	font-family: 'Fira Code', monospace;
+}
