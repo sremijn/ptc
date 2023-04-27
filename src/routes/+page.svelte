@@ -1,54 +1,108 @@
 <script>
+	import { questions } from './questions';
+	import { fade } from 'svelte/transition';
+
+	import Header from '../components/header.svelte';
+
 	import Question from '../components/question.svelte';
 	import Answer from '../components/answer.svelte';
 	import Button from '../components/button.svelte';
-
-	let showAnswer = false;
+	import Card from '../components/card.svelte';
 
 	/** @type {number?} */
 	let selectedAnswer = null;
-	let correctAnswer = 3;
+	let showAnswer = false;
+	let questionNumber = 0;
+
+	let score = 0;
+	let seconds = questions[questionNumber].time;
+
+	let isCorrect = false;
+
+	let timesUp = false;
+
+	function nextQuestion() {
+		showAnswer = false;
+		questionNumber++;
+
+		if (questions.length <= questionNumber) {
+			questionNumber = 0;
+			return;
+		}
+
+		seconds = questions[questionNumber].time;
+	}
+
+	function submitQuestion() {
+		timesUp = false;
+		showAnswer = true;
+		isCorrect = selectedAnswer == questions[questionNumber].correct;
+
+		if (isCorrect) score++;
+
+		selectedAnswer = null;
+	}
+
+	function outOfTime() {
+		showAnswer = true;
+		isCorrect = false;
+		timesUp = true;
+
+		selectedAnswer = null;
+	}
 </script>
 
-<div class="question">
-	<Question
-		number={1}
-		answers={['16', '12', '4', '0']}
-		bind:selected={selectedAnswer}
-	>
-		OneOne was one racehorse, TwoTwo was one too. OneOne won one race, TwoTwo
-		won one too.
-		<br />
-		<br />
-		<b>How many numbers are there in all?</b>
-	</Question>
+{#if !showAnswer}
+	<div class="layout">
+		<Header {score} {seconds} on:timesUp={outOfTime} />
 
-	<div class="button-wrapper">
-		<Button
-			on:click={() => (showAnswer = true)}
-			size="large"
-			disabled={selectedAnswer == null}
-		>
-			Submit
-		</Button>
+		<Card>
+			<div class="question">
+				<Question
+					number={questionNumber + 1}
+					answers={questions[questionNumber].answers}
+					bind:selected={selectedAnswer}
+				>
+					{questions[questionNumber].question}
+				</Question>
+
+				<div class="button-wrapper">
+					<Button
+						on:click={submitQuestion}
+						size="large"
+						disabled={selectedAnswer == null}
+					>
+						Submit
+					</Button>
+				</div>
+			</div>
+		</Card>
 	</div>
-</div>
+{/if}
 
 {#if showAnswer}
-	<Answer
-		isCorrect={selectedAnswer == correctAnswer}
-		on:click={() => {
-			showAnswer = false;
-			selectedAnswer = null;
-		}}
-	/>
+	<div transition:fade>
+		<Answer {isCorrect} outOfTime={timesUp} on:click={nextQuestion} />
+	</div>
 {/if}
 
 <style>
+	.layout {
+		width: 100%;
+		max-width: 1024px;
+		margin: 0 auto;
+
+		display: grid;
+		grid-template-rows: auto 1fr;
+		align-items: center;
+
+		position: relative;
+
+		height: 100%;
+	}
+
 	.question {
-		display: flex;
-		flex-direction: column;
-		align-items: stretch;
+		display: grid;
 		gap: 24px;
 	}
 
