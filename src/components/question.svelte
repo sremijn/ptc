@@ -1,23 +1,21 @@
 <script>
+	import { questions } from '../routes/questions';
+	import { questionIndex } from '../routes/stats';
+
 	import QuestionOption from './question-option.svelte';
-
-	export let number = 1;
-
-	/** @type { [string, string] | [string, string, string] | [string, string, string, string] } */
-	export let answers = ['', ''];
 
 	/** @type { number? } */
 	export let selected = null;
 </script>
 
 <div>
-	<p style="font-size: 1.5rem; margin-top: 0;">
-		{number}.
-		<slot />
+	<p>
+		{$questionIndex + 1}.
+		{questions[$questionIndex].question}
 	</p>
 
 	<div class="answer-group">
-		{#each answers as answer, index}
+		{#each questions[$questionIndex].answers as answer, index}
 			<QuestionOption
 				letter={['a', 'b', 'c', 'd'][index]}
 				text={answer}
@@ -30,6 +28,10 @@
 </div>
 
 <style>
+	p {
+		font-size: 1.5rem;
+		margin-top: 0;
+	}
 	.answer-group {
 		display: grid;
 		gap: 24px;

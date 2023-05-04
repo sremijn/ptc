@@ -1,10 +1,15 @@
 <div class="background" />
-<slot />
+<div class="content">
+	<slot />
+</div>
 
 <style>
+	.content {
+		position: relative;
+		display: flex;
+		height: 100%;
+	}
 	.background {
-		padding: 32px;
-		display: grid;
 		position: absolute;
 		inset: 0;
 		background-color: var(--color-purple);
