@@ -11,15 +11,12 @@
 	function timesUp() {
 		eventOut('timesUp');
 	}
-
-	export let score = 0;
-	export let seconds = 0;
 </script>
 
 <Card>
 	<div>
-		<Score {score} />
-		<Clock {seconds} on:timesUp={timesUp} />
+		<Score />
+		<Clock on:timesUp={timesUp} />
 	</div>
 </Card>
 
